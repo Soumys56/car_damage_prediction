@@ -33,7 +33,7 @@ def predict_image(img: Image.Image):
     
     image_tensor=tranforms(img).unsqueeze(0)
     trained_model=carClassifierRestNet()
-    trained_model.load_state_dict(torch.load("save_model.pth"))
+    trained_model.load_state_dict(torch.load("./model/save_model.pth"))
     trained_model.eval()
     with torch.no_grad():
         output=trained_model(image_tensor)
