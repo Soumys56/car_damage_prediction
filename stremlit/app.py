@@ -5,6 +5,15 @@ import torch
 from torchvision import transforms
 import torch.nn as nn
 import torchvision.models as models
+import os
+
+# Get current directory (where app.py is running)
+BASE_DIR = os.path.dirname(os.path.abspath(__file__))
+
+# Join path to your model file
+MODEL_PATH = os.path.join(BASE_DIR, "model", "save_model.pth")
+
+
 class_names=['F_Breakage', 'F_Crushed', 'F_Normal', 'R_Breakage', 'R_Crushed', 'R_Normal']
 
 class  carClassifierRestNet(nn.Module):
@@ -33,7 +42,7 @@ def predict_image(img: Image.Image):
     
     image_tensor=tranforms(img).unsqueeze(0)
     trained_model=carClassifierRestNet()
-    trained_model.load_state_dict(torch.load("./model/save_model.pth"))
+    trained_model.load_state_dict(torch.load(MODEL_PATH)))
     trained_model.eval()
     with torch.no_grad():
         output=trained_model(image_tensor)
